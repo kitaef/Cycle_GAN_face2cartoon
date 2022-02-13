@@ -1,8 +1,6 @@
-from config import *
 import torch
 import torch.nn as nn
-import warnings
-warnings.filterwarnings("ignore")
+from config import BATCH_SIZE, IMAGE_SIZE
 
 def conv_block(in_ch, out_ch, kernel=3, stride=2, padding=1, normalize=True,
                activation=nn.LeakyReLU(0.2, inplace=True)):
@@ -49,7 +47,7 @@ class Res_block(nn.Module):
 
 class Discriminator(nn.Module):
 
-    def __init__(self, in_ch=3, features=[64, 128, 256, 512]):
+    def __init__(self, in_ch=3, features=[32, 64, 128, 256]):
         super().__init__()
         layers = []
         for out_ch in features:
@@ -68,15 +66,15 @@ class Generator(nn.Module):
         super().__init__()
         layers = []
         layers += conv_block(3, 32, kernel=5, stride=1, padding=2, activation=nn.ReLU(inplace=True))
-        layers += conv_block(32, 64, activation=nn.ReLU(inplace=True))
-        layers += conv_block(64, 128, activation=nn.ReLU(inplace=True))
-        layers += conv_block(128, 256, activation=nn.ReLU(inplace=True))
-        layers += conv_block(256, 512, activation=nn.ReLU(inplace=True))
-        # layers += conv_block(512,512, activation=nn.ReLU(inplace=True))
-        # layers += conv_block(1024, 1024, kernel=2, stride=1, padding=0, normalize=False, activation=nn.Sigmoid())
+        layers += conv_block(32,64, activation=nn.ReLU(inplace=True))
+        layers += conv_block(64,128, activation=nn.ReLU(inplace=True))
+        layers += conv_block(128,256, activation=nn.ReLU(inplace=True))
+        layers += conv_block(256,512, activation=nn.ReLU(inplace=True))
+        layers += conv_block(512,512, activation=nn.ReLU(inplace=True))
+        # layers += conv_block(512, 1024, activation=nn.ReLU(inplace=True))
         layers += [Res_block(512)] * 1
-        # layers += deconv_block(1024, 1024, activation=nn.ReLU(inplace=True))
-        # layers += deconv_block(512, 512, activation=nn.ReLU(inplace=True))
+        # layers += deconv_block(1024, 512, activation=nn.ReLU(inplace=True))
+        layers += deconv_block(512, 512, activation=nn.ReLU(inplace=True))
         layers += deconv_block(512, 256, activation=nn.ReLU(inplace=True))
         layers += deconv_block(256, 128, activation=nn.ReLU(inplace=True))
         layers += deconv_block(128, 64, activation=nn.ReLU(inplace=True))
@@ -88,14 +86,14 @@ class Generator(nn.Module):
         return self.net(x)
 
 
-def test():
-    D = Discriminator()
-    G = Generator()
-    test = torch.randn(BATCH_SIZE, 3, IMAGE_SIZE, IMAGE_SIZE)
-    print('Disriminator - OK' if D(test).shape == torch.Size(
-        [BATCH_SIZE, 1]) else f'Disriminator - failed: {D(test).shape}')
-    print('Generator - OK' if G(test).shape == torch.Size(
-        [BATCH_SIZE, 3, IMAGE_SIZE, IMAGE_SIZE]) else f'Disriminator - failed: {G(test).shape}')
+# def test():
+#     D = Discriminator()
+#     G = Generator()
+#     test = torch.randn(BATCH_SIZE, 3, IMAGE_SIZE, IMAGE_SIZE)
+#     print('Disriminator - OK' if D(test).shape == torch.Size(
+#         [BATCH_SIZE, 1]) else f'Disriminator - failed: {D(test).shape}')
+#     print('Generator - OK' if G(test).shape == torch.Size(
+#         [BATCH_SIZE, 3, IMAGE_SIZE, IMAGE_SIZE]) else f'Disriminator - failed: {G(test).shape}')
 
 
-test()
+# test()

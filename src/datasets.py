@@ -1,6 +1,7 @@
 import os
 import torchvision.transforms as tt
 from torch.utils.data import Dataset
+from config import DATASET_SIZE
 from PIL import Image
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
@@ -28,7 +29,6 @@ class ImageDS(Dataset):
                     break
                 if filename.endswith('.jpg') or filename.endswith('.png'):
                     image = Image.open(os.path.join(dirname, filename))
-                    print(type(image))
                     progress_bar.update(1)
                     scale = 1.4 if crop == 'cartoon' else 1.0
                     transform = tt.Compose([
@@ -54,37 +54,3 @@ class ImageDS(Dataset):
             image_a = self.images_a[int(index * (self.size_a / self.size_b))]
             image_b = self.images_b[index]
         return image_a, image_b
-
-
-# # Apples2oranges
-# path_tr_a = '../input/apple2orange-dataset/trainA/'
-# path_tr_b ='../input/apple2orange-dataset/trainB/'
-# path_tst_a = '../input/apple2orange-dataset/testA/'
-# path_tst_b = '../input/apple2orange-dataset/testB/'
-
-# # Monet2photo
-# path_tr_a = '../input/monet2photo/trainA/'
-# path_tr_b ='../input/monet2photo/trainB/'
-# path_tst_a = '../input/monet2photo/testA/'
-# path_tst_b = '../input/monet2photo/testB/'
-
-# Cars2toys
-# path_tr_a = '../input/stanford-cars-dataset/cars_train/cars_train/'
-# path_tr_b = '../input/toy-cars-annotated-on-yolo-format/'
-
-# Faces2cartoons
-path_tr_a = 'C:\\Users\au01044\\projects\\dls_final\\bin\\data_a'
-path_tr_b = '//bin//data_b'
-
-IMAGE_SIZE = 64
-BATCH_SIZE = 50
-DATASET_SIZE = 250
-
-# To speed up the training all preprocessed images are loaded to memory with ImageDS
-# faces_ds = ImageDS(path_tr_a, path_tr_b, IMAGE_SIZE)
-# train_ds = ImageDS(path_tr_a, path_tr_b, IMAGE_SIZE)
-# test_ds = ImageDS(path_tst_a, path_tst_b, IMAGE_SIZE)
-
-# train_ds, test_ds = train_test_split(faces_ds, test_size=0.2, random_state=1)
-
-print(os.listdir('bin/data_a/'))
