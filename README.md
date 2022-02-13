@@ -4,3 +4,4 @@ This is a project of Cycle GAN model used to convert person faces into their car
 I have managed to achieve some visible results with converting faces to cartoons with slight modifications of original models architecture and apllying lower cycle and identity losses. Training was performed on 25000 images from each domain with a batch size = 50 for 130 epochs.
 
 On the left you can see the results of generating cartoons to faces and back to faces(from top to bottom). On the right - opposite transformations.
+![plot](./results.png)
