@@ -1,11 +1,8 @@
-print('hello')
-
-
+from config import *
 import torch
 import torch.nn as nn
-
-BATCH_SIZE = 20
-IMAGE_SIZE = 64
+import warnings
+warnings.filterwarnings("ignore")
 
 def conv_block(in_ch, out_ch, kernel=3, stride=2, padding=1, normalize=True,
                activation=nn.LeakyReLU(0.2, inplace=True)):
