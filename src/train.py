@@ -1,6 +1,5 @@
 import warnings
 warnings.filterwarnings("ignore")
-# from torchvision.utils import make_grid
 import torch
 from sklearn.model_selection import train_test_split
 from config import *
@@ -23,7 +22,7 @@ G_B2A.apply(weights_init)
 D_A.apply(weights_init)
 D_B.apply(weights_init)
 
-G_A2B.load_state_dict(torch.load('/content/dls_final_project/src/trained_models/pretrained_G_A2B'))
-G_B2A.load_state_dict(torch.load('/content/dls_final_project/src/trained_models/pretrained_G_B2A'))
-D_A.load_state_dict(torch.load('/content/dls_final_project/src/trained_models/pretrained_D_A'))
-D_B.load_state_dict(torch.load('/content/dls_final_project/src/trained_models/pretrained_D_B'))
+G_A2B.load_state_dict(torch.load('/content/dls_final_project/src/pretrained_models/new_120_400_G_A2B'))
+G_B2A.load_state_dict(torch.load('/content/dls_final_project/src/pretrained_models/new_120_400_G_B2A'))
+D_A.load_state_dict(torch.load('/content/dls_final_project/src/pretrained_models/new_120_400_D_A'))
+D_B.load_state_dict(torch.load('/content/dls_final_project/src/pretrained_models/new_120_400_D_B'))
