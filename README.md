@@ -5,3 +5,5 @@ I have managed to achieve some visible results with converting faces to cartoons
 
 On the left you can see the results of generating cartoons to faces and back to faces(from top to bottom). On the right - opposite transformations.
 ![plot](./results.png)
+
+If you want to try to train this model or to generate images using my pretrained models please open *faces2cartoons.ipynb* in Google Colab and follow instructions
