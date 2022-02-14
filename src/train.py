@@ -68,10 +68,10 @@ def train(epoch_start=0, epoch_end=5):
     for epoch in range(epoch_start, epoch_end):
         progress_bar = tqdm(enumerate(train_dl), total=len(train_dl))
         for i, data in progress_bar:
-            G_A2B.train()
-            G_B2A.train()
-            D_A.train()
-            D_B.train()
+            G_A2B.train().to(device)
+            G_B2A.train().to(device)
+            D_A.train().to(device)
+            D_B.train().to(device)
             real_a = data[0].to(device)
             real_b = data[1].to(device)
             batch_size = real_a.size(0)
